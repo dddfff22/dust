@@ -19,6 +19,7 @@ public class Dust{
 
     @Data
     public static class Room{
+        private String RoomId;
         private String RoomName;
         private String temp;
         private String dust;
