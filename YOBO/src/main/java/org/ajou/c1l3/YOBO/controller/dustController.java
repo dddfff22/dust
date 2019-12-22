@@ -51,8 +51,15 @@ public class dustController {
         dust.setTimestamp(new Timestamp((date.getTime())));
         for(int i=0;i<dust.getRooms().length;i++){
             dust.getRooms()[i].setRoomId(UUID.randomUUID().toString());
-            dust.getRooms()[i].setFlag((Integer.parseInt(dust.getRooms()[i].getDust())/5)+1);
-            if(dust.getRooms()[i].getFlag()>5){
+            if( Float.parseFloat(dust.getRooms()[i].getDust())<1000){
+                dust.getRooms()[i].setFlag(1);
+            }else if( Float.parseFloat(dust.getRooms()[i].getDust())<2000){
+                dust.getRooms()[i].setFlag(2);
+            }else if( Float.parseFloat(dust.getRooms()[i].getDust())<3000){
+                dust.getRooms()[i].setFlag(3);
+            }else if( Float.parseFloat(dust.getRooms()[i].getDust())<4000){
+                dust.getRooms()[i].setFlag(4);
+            }else {
                 dust.getRooms()[i].setFlag(5);
             }
         }
