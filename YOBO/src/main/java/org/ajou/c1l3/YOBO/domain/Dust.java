@@ -24,6 +24,7 @@ public class Dust{
         private String temp;
         private String dust;
         private String humidity;
+        private int flag;
     }
 
 }

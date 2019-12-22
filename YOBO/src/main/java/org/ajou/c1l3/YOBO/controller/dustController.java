@@ -35,6 +35,13 @@ public class dustController {
 
     @PostMapping("/dust/addDustInfo")
     public Dust getUserbyDid(@RequestBody Dust dust){
+        Query query = Query.query(where("user_id").is(dust.getUser_id()));
+        try {
+            mongoTemplate.remove(query, Dust.class);
+        }catch (Exception e) {
+            System.out.println("Error");
+            e.printStackTrace();
+        }
         DateOperators.Timezone time;
         System.out.println(dust);
         java.util.Date date = new java.util.Date();
@@ -44,6 +51,10 @@ public class dustController {
         dust.setTimestamp(new Timestamp((date.getTime())));
         for(int i=0;i<dust.getRooms().length;i++){
             dust.getRooms()[i].setRoomId(UUID.randomUUID().toString());
+            dust.getRooms()[i].setFlag((Integer.parseInt(dust.getRooms()[i].getDust())/5)+1);
+            if(dust.getRooms()[i].getFlag()>5){
+                dust.getRooms()[i].setFlag(5);
+            }
         }
         Dust user=mongoTemplate.insert(dust);
         return user;
